@@ -1,0 +1,162 @@
+{
+	"name": "anthroprose",
+	"hostname":"anthroprose.com",
+	"timezone":"CST",
+	"description": "The base role for Anthroprose.com",
+	"instance_role": "anthroprose",
+	"run_list": [
+	    "recipe[anthroprose::init]",
+		"recipe[apt]",
+		"recipe[php]",
+		"recipe[git]",
+		"recipe[chef-solo-search]",
+		"recipe[user::data_bag]",
+		"recipe[sudo]",
+		"recipe[nginx]",
+		"recipe[mysql::server]",
+		"recipe[openvpn]",
+        "recipe[openvpn::users]",
+ 		"recipe[anthroprose]",
+ 		"recipe[diaspora]",
+		"recipe[postfix::server]"
+	],
+  	"region" : "us-east-1",
+	"users": ["acorley"],
+	"dependencies" : [
+		"htop",
+		"libpcre3-dev",
+		"php5-suhosin",
+		"php5-mcrypt",
+		"php5-tidy",
+		"php5-xdebug",
+		"php5-dev",
+		"php5-mysql",
+		"php5-imap",
+		"libonig-dev",
+		"libqdbm-dev",
+		"uwsgi",
+		"uwsgi-plugin-cgi",
+		"dovecot-imapd",
+		"dovecot-mysql",
+		"aspell",
+		"memcached",
+		"build-essential",
+		"libxslt1.1",
+		"libxslt1-dev",
+		"libxml2",
+		"libmysqlclient-dev",
+		"libmysql-ruby",
+		"libssl-dev",
+		"libopenssl-ruby",
+		"libcurl4-openssl-dev",
+		"imagemagick",
+		"libmagickwand-dev",
+		"php5-imagick",
+		"php5-memcache",
+		"git-core",
+		"redis-server",
+		"libffi-dev",
+		"libffi-ruby",
+		"libsqlite3-dev",
+		"libpq-dev",
+		"libreadline5",
+		"openjdk-7-jre",
+		"nodejs",
+		"libncurses5-dev"
+	],
+	"openvpn" : {
+		"key" : {
+			"province" : "TX",
+    		"city" : "Austin",
+			"org" : "anthroprose",
+			"email" : "anthroprose@anthroprose.com"
+    	},
+    	"local" : "",
+    	"proto" : "udp",
+    	"port" : "54",
+    	"subnet" : "10.0.44.0",
+		"netmask" : "255.255.255.0",
+		"routes" : [""]
+	},
+	"authorization" : {
+		"sudo" : {
+			"passwordless" : true,
+			"users" : ["ubuntu", "acorley"]
+		}
+    },
+	"postfix" : {
+		"mail_relay_networks" : ["10.0.44.0/24","127.0.0.1/32"],
+		"myorigin":"anthroprose.com",
+		"mydomain":"anthroprose.com",
+		"myhostname":"anthroprose.com",
+		"inet_interfaces":"all"
+	},
+	"mysql" : {
+		"bind_address" : "127.0.0.1"
+	},
+	"nginx" : {
+		"default_domain" : "anthroprose.com",
+		"default_site_enabled" : false,
+        "ssl" : {
+            "city" : "Austin",
+            "state" : "TX",
+            "country" : "US"
+        },
+		"sites" : [
+		    { "domain":"www.anthroprose.com", "uwsgi_port":"2101", "directory":"/opt/wordpress" },
+			{ "domain":"reader.anthroprose.com", "https":"true", "uwsgi_port":"2102", "directory":"/opt/tinytinyrss" },
+			{ "domain":"mail.anthroprose.com", "https":"true", "uwsgi_port":"2103", "directory":"/opt/roundcube" }
+		]
+	},
+	"horde" : {
+		"directory" : "/opt/horde",
+		"db" : {
+			"database" : "horde"
+		},
+		"admin_user" : "acorley"
+	},
+	"wordpress" : {
+		"dir" : "/opt/wordpress",
+		"db" : {
+			"user" : "wordpress",
+			"database" : "wordpress"
+		},
+		"keys" : {
+		}
+	},
+	"tinytinyrss" : {
+		"dir" :"/opt/tinytinyrss",
+		"domain" : "https://reader.anthroprose.com",
+		"email" : "anthroprose@gmail.com",
+		"db" : {
+            "database" : "tinytinyrss"
+        }
+	},
+	"roundcube" : {
+        "dir" :"/opt/roundcube",
+        "domain" : "https://mail.anthroprose.com",
+        "support" : "http://www.anthroprose.com",
+        "db" : {
+            "database" : "roundcubemail"
+        }
+    },
+	"diaspora" : {
+	   "dir" : "/opt/diaspora",
+	   "pod_name" : "anthroprose",
+	   "domain" : "me.anthroprose.com",
+	   "url" : "https://me.anthroprose.com",
+	   "admin" : "anthroprose",
+	   "admin_email" : "anthroprose@gmail.com",
+	   "enable_registrations" : "false",
+	   "require_ssl" : "false",
+	   "city" : "Austin",
+	   "state" : "TX",
+	   "country" : "US"
+	},
+	"ipv6" : {
+	   "server_ipv4address" : "209.51.181.2",
+	   "client_ipv6address" : "2001:470:1f10:8e2::2",
+	   "ipv6address" : "2001:470:1f11:8e2::1"
+	}
+}
+

@@ -1,0 +1,50 @@
+<% if @https == 'true' -%>
+server {
+	listen       80;
+	server_name  <%= @domain %>;
+	location / {
+		rewrite ^(.*) https://<%= @domain %>$1 permanent;
+	}
+}
+<% end -%>
+server {
+
+<% if @https == 'true' -%>
+        listen 443;
+
+        ssl                     on;
+        ssl_certificate         /etc/nginx/ssl/<%= @domain %>.crt;
+        ssl_certificate_key     /etc/nginx/ssl/<%= @domain %>.key;
+<% else -%>
+		listen 80;
+<% end -%>
+
+        server_name <%= @domain %>;
+
+        access_log /var/log/nginx/<%= @domain %>_access.log;
+        error_log /var/log/nginx/<%= @domain %>_error.log;
+
+        root <%= @directory %>;
+
+        client_max_body_size      32M;
+        send_timeout            1000s;
+        fastcgi_send_timeout    1000s;
+        fastcgi_read_timeout    1000s;
+        client_body_timeout     1000s;
+        uwsgi_connect_timeout   1000s;
+        uwsgi_send_timeout      1000s;
+        uwsgi_read_timeout      1000s;
+
+		try_files $uri @diaspora;
+		
+		location @diaspora {
+
+                proxy_redirect off;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_pass <%= @proxy_location %>;
+
+        }
+}
+
