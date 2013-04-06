@@ -1,2 +1,3 @@
 .project
+.settings
 chef-repo/data_bags/rpi-mesh/config.json
