@@ -1,5 +1,5 @@
 execute "hostname" do
-  command "echo #{node['nginx']['default_domain']} >> /etc/hostname;host -F /etc/hostname"
+  command "echo #{node['nginx']['default_domain']} > /etc/hostname;hostname -F /etc/hostname"
 end
 
 Array(node['dependencies']).each do |p|
