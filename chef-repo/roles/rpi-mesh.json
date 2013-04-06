@@ -42,7 +42,7 @@
 			"passwordless" : true,
 			"users" : ["pi", "acorley"]
 		}
-     },
+        },
 	"nginx" : {
 		"default_domain" : "ipv6.anthroprose.com",
 		"default_site_enabled" : false,
@@ -54,6 +54,14 @@
 		"sites" : [
 			{ "domain":"ipv6.anthroprose.com", "https":"true", "uwsgi_port":"2102", "directory":"/opt/www" }
 		]
+	},
+
+	"ipv6" : {
+	   "tunnel" : "false",
+	   "server_ipv4address" : "209.51.181.2",
+	   "client_ipv4address" : "209.51.181.2",
+	   "client_ipv6address" : "2001:470:1f10:8e2::2",
+	   "ipv6address" : "2001:470:1f11:8e2::1"
 	}
 }
 
