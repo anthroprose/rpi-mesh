@@ -18,7 +18,6 @@
 	"dependencies" : [
 		"htop",
 		"libpcre3-dev",
-		"php5-suhosin",
 		"php5-mcrypt",
 		"php5-tidy",
 		"php5-xdebug",
