@@ -1,0 +1,65 @@
+{
+	"name": "rpi",
+	"hostname":"ipv6.anthroprose.com",
+	"timezone":"CST",
+	"description": "The base role for rpi-mesh",
+	"run_list": [
+	        "recipe[rpi-mesh::init]",
+		"recipe[apt]",
+		"recipe[php]",
+		"recipe[git]",
+		"recipe[chef-solo-search]",
+		"recipe[user::data_bag]",
+		"recipe[sudo]",
+		"recipe[nginx]",
+	],
+	"users": ["acorley"],
+	"dependencies" : [
+		"htop",
+		"libpcre3-dev",
+		"php5-suhosin",
+		"php5-mcrypt",
+		"php5-tidy",
+		"php5-xdebug",
+		"php5-dev",
+		"php5-mysql",
+		"php5-imap",
+		"libonig-dev",
+		"libqdbm-dev",
+		"uwsgi",
+		"uwsgi-plugin-cgi",
+		"build-essential",
+		"libssl-dev",
+		"libopenssl-ruby",
+		"libcurl4-openssl-dev",
+		"php5-imagick",
+		"php5-memcache",
+		"git-core",
+		"nodejs"
+	],
+	"authorization" : {
+		"sudo" : {
+			"passwordless" : true,
+			"users" : ["pi", "acorley"]
+		}
+        },
+	"nginx" : {
+		"default_domain" : "ipv6.anthroprose.com",
+		"default_site_enabled" : false,
+	        "ssl" : {
+        	    "city" : "Austin",
+	            "state" : "TX",
+	            "country" : "US"
+        	},
+		"sites" : [
+			{ "domain":"ipv6.anthroprose.com", "https":"true", "uwsgi_port":"2102", "directory":"/opt/www" }
+		]
+	},
+
+	"ipv6" : {
+	   "server_ipv4address" : "209.51.181.2",
+	   "client_ipv6address" : "2001:470:1f10:8e2::2",
+	   "ipv6address" : "2001:470:1f11:8e2::1"
+	}
+}
+
