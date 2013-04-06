@@ -35,13 +35,7 @@ server {
         uwsgi_send_timeout      1000s;
         uwsgi_read_timeout      1000s;
 
-<% if @directory == "#{node[:diaspora][:dir]}/public" -%>
-		try_files $uri @diaspora;
-		
-		location @diaspora {
-<% else -%>
         location / {
-<% end -%>
 
 <% if @proxy == 'true' -%>
                 proxy_redirect off;
