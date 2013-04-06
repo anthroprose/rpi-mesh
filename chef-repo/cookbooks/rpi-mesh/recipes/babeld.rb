@@ -5,4 +5,3 @@ git "#{node['babeld']['dir']}/" do
   user 'root'
   group 'root'
 end
-

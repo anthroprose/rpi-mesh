@@ -12,6 +12,7 @@
 		"recipe[user::data_bag]",
 		"recipe[sudo]",
 		"recipe[nginx]"
+		"recipe[rpi-mesh::default]"
 	],
 	"users": ["acorley"],
 	"dependencies" : [

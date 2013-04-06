@@ -75,6 +75,6 @@ end
 
 if node['babeld']['dir'] != '' then
 
-include_recipe "rpi-mesh::babeld"
+  include_recipe "rpi-mesh::babeld"
 
 end
