@@ -23,7 +23,7 @@
     "build-essential": ">= 0.0.0",
     "yum": ">= 0.0.0",
     "windows": ">= 0.0.0",
-    "runit": "~> 1.0"
+    "runit": ">= 1.0"
   },
   "recommendations": {
   },
@@ -73,5 +73,5 @@
     "git::server": "Sets up a runit_service for git daemon",
     "git::source": "Installs git from source"
   },
-  "version": "2.3.0"
+  "version": "2.5.0"
 }
