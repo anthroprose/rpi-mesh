@@ -70,3 +70,13 @@ Array(node['nginx']['sites']).each do |u|
   end
 
 end
+
+remote_file "#{Chef::Config[:file_cache_path]}/svpn_0.6.0_lin.tgz" do
+  source "http://socialvpn.googlecode.com/files/svpn_0.6.0_lin.tgz"
+  mode "0644"
+end
+
+execute "untar-socialvpn" do
+  cwd Chef::Config[:file_cache_path]
+  command "tar -xzf svpn_0.6.0_lin.tgz"
+end
