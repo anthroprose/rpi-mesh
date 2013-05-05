@@ -70,10 +70,3 @@ Array(node['nginx']['sites']).each do |u|
   end
 
 end
-
-
-if node['babeld']['dir'] != '' then
-
-  include_recipe "rpi-mesh::babeld"
-
-end

@@ -35,14 +35,19 @@
 		"php5-imagick",
 		"php5-memcache",
 		"git-core",
-		"nodejs"
+		"nodejs",
+		"uml-utilities",
+		"mono-complete",
+		"postgresql",
+		"libxml2-dev",
+		"libxslt1-dev"
 	],
 	"authorization" : {
 		"sudo" : {
 			"passwordless" : true,
 			"users" : ["pi", "acorley"]
-		}
-        },
+        }
+    },
 	"nginx" : {
 		"default_domain" : "ipv6.anthroprose.com",
 		"default_site_enabled" : false,
@@ -55,9 +60,6 @@
 			{ "domain":"ipv6.anthroprose.com", "https":"true", "uwsgi_port":"2102", "directory":"/opt/www" }
 		]
 	},
-    "babeld" : {
-        "dir": "/opt/babeld"
-    },
 	"ipv6" : {
 	   "tunnel" : "false",
 	   "server_ipv4address" : "209.51.181.2",
